@@ -5,7 +5,6 @@ using Fusion;
 
 public class ShadowManager : NetworkBehaviour
 {
-    public int shadowRadius;
     public float timeBetweenSpawns;
 
     private float maxTimeBetweenSpawns;
@@ -22,6 +21,8 @@ public class ShadowManager : NetworkBehaviour
 
     public override void Spawned()
     {
+        if (!Object.HasStateAuthority) return;
+
         spawnCoroutine = SpawnShadowShips();
 
         StartCoroutine(spawnCoroutine);
@@ -47,7 +48,6 @@ public class ShadowManager : NetworkBehaviour
             yield return new WaitForSeconds(timeBetweenSpawns);
 
             NetworkObject shadowShip = Runner.Spawn(_shadowShipPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-
             shadowShip.transform.parent = transform;
         }
     }

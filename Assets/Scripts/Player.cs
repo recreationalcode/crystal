@@ -7,7 +7,7 @@ using Cinemachine;
 public class Player : Ship
 {
     private CinemachineVirtualCamera _vcam;
-    
+
     protected override void Awake()
     {
         base.Awake();
@@ -17,7 +17,7 @@ public class Player : Ship
 
     private void Start()
     {
-        if(_networkObject.HasInputAuthority)
+        if(Object.HasInputAuthority)
         {
             _vcam.Follow = transform;
         }
@@ -25,6 +25,24 @@ public class Player : Ship
         
     public override void FixedUpdateNetwork()
     {
+        if (!isShipTypeSetByAuthority && Object.HasInputAuthority)
+        {
+            // TODO Change this to some kind of player preference or ideally from the player NFT!
+            if (Runner.IsServer)
+            {
+                shipType = ShipType.Tri;
+            }
+            else
+            {
+                Debug.Log("About to call RPC");
+                RPC_SetShipType(ShipType.Quad);
+            }
+
+            isShipTypeSetByAuthority = true;
+        }
+
+        if (!isReady) return;
+
         ConstrainY();
 
         if (GetInput(out NetworkInputData data))

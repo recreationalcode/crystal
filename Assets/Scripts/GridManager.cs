@@ -5,9 +5,7 @@ using Fusion;
 
 public class GridManager : NetworkBehaviour
 {
-    // TODO Should this be networked?
-    public GameObject territoryPrefab;
-    
+    [SerializeField] private NetworkPrefabRef _territoryPrefab;
     [SerializeField] private NetworkPrefabRef _fractalBasePrefab;
     public static Transform fractalBaseTransform;
     public static HashSet<Vector2> crystal = new HashSet<Vector2>();
@@ -72,6 +70,8 @@ public class GridManager : NetworkBehaviour
 
     public override void Spawned()
     {
+        if (!Object.HasStateAuthority) return;
+
         int halfGridSize = gridSize / 2;
 
         for (int q = -halfGridSize; q < halfGridSize; q++)
@@ -86,8 +86,8 @@ public class GridManager : NetworkBehaviour
                 }
                 else
                 {
-                    // TODO Should this be networked?
-                    Instantiate(territoryPrefab, GetCellCenter(new Vector2(q, r)), Quaternion.identity, transform);   
+                    NetworkObject territoryCell = Runner.Spawn(_territoryPrefab, GetCellCenter(new Vector2(q, r)), Quaternion.identity);
+                    territoryCell.transform.parent = transform;
                 }
             }
         }

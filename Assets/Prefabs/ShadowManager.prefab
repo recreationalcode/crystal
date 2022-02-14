@@ -47,9 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   shadowRadius: 20
-  timeBetweenSpawns: 10
+  timeBetweenSpawns: 15
   _shadowShipPrefab:
-    RawGuidValue: f4d333f1e8d144c6abc5ea10362bb696
+    RawGuidValue: 543443f749fb742489bf9aa0fca47543
 --- !u!114 &1630329357617491871
 MonoBehaviour:
   m_ObjectHideFlags: 0

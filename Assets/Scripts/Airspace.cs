@@ -14,10 +14,11 @@ public class Airspace : MonoBehaviour
 
         if(other.gameObject.CompareTag("Fractal"))
         {    
-            cell.Crystallize(ship.shipType);   
-        } else if(other.gameObject.CompareTag("Shadow"))
+            cell.crystallizedBy = ship;   
+        }
+        else if(other.gameObject.CompareTag("Shadow"))
         {    
-            cell.Fracture();   
+            cell.crystallizedBy = null;   
         }
     }
 }

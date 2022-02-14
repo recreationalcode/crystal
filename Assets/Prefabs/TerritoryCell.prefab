@@ -679,7 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d9080a91c7145ada51dea454c3bf35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cell: {fileID: 261798944607023946}
+  cell: {fileID: 6270546316394337329}
 --- !u!1 &4650130156124535842
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,7 +693,6 @@ GameObject:
   - component: {fileID: 1874440812707089751}
   - component: {fileID: 6072272208320373281}
   - component: {fileID: 3757622674498813455}
-  - component: {fileID: 261798944607023946}
   m_Layer: 0
   m_Name: Cell
   m_TagString: Untagged
@@ -1302,7 +1301,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eabf5f01cdf6244fbb23ccb6f48abc1f, type: 2}
+  - {fileID: 2100000, guid: 2898c1697b8bf4459b5aedaed2c982e4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1332,25 +1331,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4650130156124535842}
   m_Mesh: {fileID: 0}
---- !u!114 &261798944607023946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4650130156124535842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb2312b42ece946af95a662c652251b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crystallizeTime: 1
-  fractureTime: 1
-  triCrystallizeMaterial: {fileID: 2100000, guid: eabf5f01cdf6244fbb23ccb6f48abc1f, type: 2}
-  quadCrystallizeMaterial: {fileID: 2100000, guid: e43215b15b3b54ee49d492c0b6da4b65, type: 2}
-  pentaCrystallizeMaterial: {fileID: 0}
-  hexaCrystallizeMaterial: {fileID: 2100000, guid: b012563df7d91432babe95c78f71f770, type: 2}
-  fractureMaterial: {fileID: 2100000, guid: 2898c1697b8bf4459b5aedaed2c982e4, type: 2}
 --- !u!1 &6987356028242367844
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,6 +1340,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6915460008358312962}
+  - component: {fileID: 1527357465995892019}
+  - component: {fileID: 6270546316394337329}
+  - component: {fileID: 8318782029711275728}
   m_Layer: 0
   m_Name: TerritoryCell
   m_TagString: Untagged
@@ -1384,3 +1367,79 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1527357465995892019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6987356028242367844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AoiMode: 0
+  DefaultPropertyGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 0
+  AoiPosition: {fileID: 0}
+  Flags: 2305
+  NetworkGuid:
+    RawGuidValue: eff0fad1f35c54fa28f874a5c1eaf433
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 6270546316394337329}
+  - {fileID: 8318782029711275728}
+  SimulationBehaviours: []
+--- !u!114 &6270546316394337329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6987356028242367844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb2312b42ece946af95a662c652251b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  crystallizeTime: 1
+  fractureTime: 1
+  triCrystallizeMaterial: {fileID: 2100000, guid: eabf5f01cdf6244fbb23ccb6f48abc1f, type: 2}
+  quadCrystallizeMaterial: {fileID: 2100000, guid: e43215b15b3b54ee49d492c0b6da4b65, type: 2}
+  pentaCrystallizeMaterial: {fileID: 0}
+  hexaCrystallizeMaterial: {fileID: 2100000, guid: b012563df7d91432babe95c78f71f770, type: 2}
+  fractureMaterial: {fileID: 2100000, guid: 2898c1697b8bf4459b5aedaed2c982e4, type: 2}
+  cellTransform: {fileID: 9079793765586796986}
+  axialCoordinates: {x: 0, y: 0}
+--- !u!114 &8318782029711275728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6987356028242367844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  _interpolationTarget: {fileID: 0}
+  DetachInterpTarget: 0
+  SyncParent: 1
+  InterpolateErrorCorrection: 1
+  InterpolatedErrorCorrectionSettings:
+    MinRate: 3.3
+    MaxRate: 10
+    PosBlendStart: 0.25
+    PosBlendEnd: 1
+    PosMinCorrection: 0.025
+    PosTeleportDistance: 2
+    RotBlendStart: 0.1
+    RotBlendEnd: 0.5
+    RotTeleportRadians: 1.5
+  SyncScale: 0
+  Space: 0

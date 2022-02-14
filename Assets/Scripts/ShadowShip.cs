@@ -20,6 +20,16 @@ public class ShadowShip : Ship
 
     public override void FixedUpdateNetwork()
     {
+        if (!isShipTypeSetByAuthority && Object.HasStateAuthority)
+        {
+            // TODO This should be conditional
+            shipType = ShipType.Tri;
+
+            isShipTypeSetByAuthority = true;
+        }
+
+        if (!isReady) return;
+
         ConstrainY();
 
         Vector3 move = defaultTargetPosition - transform.position;

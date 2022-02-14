@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
-public class Cell : MonoBehaviour
+public class Cell : NetworkBehaviour
 {
     public float crystallizeTime = 2f;
     public float fractureTime = 1f;
@@ -11,6 +12,10 @@ public class Cell : MonoBehaviour
     public Material pentaCrystallizeMaterial;
     public Material hexaCrystallizeMaterial;
     public Material fractureMaterial;
+    public Transform cellTransform;
+
+    [Networked(OnChanged = nameof(Crystallize), OnChangedTargets = OnChangedTargets.All)]
+    public Ship crystallizedBy { get; set; }
 
     [SerializeField] private Vector2 axialCoordinates;
 
@@ -20,17 +25,13 @@ public class Cell : MonoBehaviour
     private GridManager _gridManager;
     private Dictionary<Ship.ShipType, Material> _crystallizeMaterials;
 
-    void Awake()
+    private void Awake()
     {
-        axialCoordinates = GridManager.GetAxialCoordinates(transform.position);
-
-        _renderer = GetComponent<Renderer>();
+        _renderer = cellTransform.gameObject.GetComponent<Renderer>();
 
         _renderer.material = fractureMaterial;
         _renderer.material.DisableKeyword("_EMISSION");
         _renderer.material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack;
-
-        _gridManager = gameObject.GetComponentInParent<GridManager>();
 
         _crystallizeMaterials = new Dictionary<Ship.ShipType, Material>
         {
@@ -40,32 +41,55 @@ public class Cell : MonoBehaviour
             {Ship.ShipType.Hexa, hexaCrystallizeMaterial}
         };
     }
-    
-    void Start()
+
+    private GridManager GetGridManager()
     {
-        _fracturePos = transform.position;
-        _crystallizePos = new Vector3(transform.position.x, 0.25f, transform.position.z);
+        if (_gridManager == null)
+        {
+            _gridManager = gameObject.GetComponentInParent<GridManager>();
+        }
+
+        return _gridManager;
+    }
+    
+    public override void Spawned()
+    {
+        axialCoordinates = GridManager.GetAxialCoordinates(transform.position);
+
+        _fracturePos = cellTransform.position;
+        _crystallizePos = new Vector3(cellTransform.position.x, 0.25f, cellTransform.position.z);
+
+        _Crystallize();
     }
 
     private IEnumerator posEnumerator;
     private IEnumerator matEnumerator;
 
-    public void Crystallize(Ship.ShipType shipType)
+    public static void Crystallize(Changed<Cell> changed)
     {
-        _renderer.material.EnableKeyword("_EMISSION");
-        _renderer.material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
-
-        StartCoroutine(_Change(crystallizeTime, _crystallizePos, _crystallizeMaterials[shipType], true));
+        changed.Behaviour._Crystallize();
     }
 
-    public void Fracture()
+    private void _Crystallize()
     {
-        StartCoroutine(_Change(fractureTime, _fracturePos, fractureMaterial, false));
+        if (crystallizedBy != null)
+        {
+            _renderer.material.EnableKeyword("_EMISSION");
+            _renderer.material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
+
+            StartCoroutine(_Change(crystallizeTime, _crystallizePos, _crystallizeMaterials[crystallizedBy.shipType], true));            
+        }
+        else
+        {
+            StartCoroutine(_Change(fractureTime, _fracturePos, fractureMaterial, false));
+
+        }
     }
+
 
     private IEnumerator _Change(float time, Vector3 pos, Material mat, bool isCrystallize)
     {
-        if(transform.position == pos)
+        if(cellTransform.position == pos)
         {
             yield break;
         }
@@ -73,7 +97,7 @@ public class Cell : MonoBehaviour
         if(posEnumerator != null) StopCoroutine(posEnumerator);
         if(matEnumerator != null) StopCoroutine(matEnumerator);
 
-        posEnumerator = SmoothLerpPos(time, transform.position, pos);
+        posEnumerator = SmoothLerpPos(time, cellTransform.position, pos);
         matEnumerator = SmoothLerpMaterial(time, _renderer.material, mat);
 
         if (isCrystallize)
@@ -90,14 +114,14 @@ public class Cell : MonoBehaviour
 
         if (isCrystallize)
         {
-            _gridManager.AddCrystal(axialCoordinates);
+            GetGridManager().AddCrystal(axialCoordinates);
         }
         else
         {
             _renderer.material.DisableKeyword("_EMISSION");
             _renderer.material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack;
 
-            _gridManager.RemoveCrystal(axialCoordinates);
+            GetGridManager().RemoveCrystal(axialCoordinates);
         }
     }
 
@@ -108,7 +132,7 @@ public class Cell : MonoBehaviour
          
         while (elapsedTime < time)
         {
-            transform.position = Vector3.Lerp(initialPos, finalPos, (elapsedTime / time));
+            cellTransform.position = Vector3.Lerp(initialPos, finalPos, (elapsedTime / time));
             elapsedTime += Time.deltaTime;
             yield return null;
         }

@@ -6,30 +6,76 @@ using Fusion;
 public class Ship : NetworkBehaviour
 {
     public enum ShipType
-     {
+    {
+        None,
         Tri, 
         Quad, 
         Penta,
         Hexa
-     };
+    };
     
-    public ShipType shipType;
+    [Networked(OnChanged = nameof(ConstructShipBody), OnChangedTargets = OnChangedTargets.All)]
+    public ShipType shipType { get; set; }
+    protected bool isShipTypeSetByAuthority = false;
+
     public int rotationSpeed;
     public int health;
 
+    [SerializeField] private GameObject _triPrefab;
+    [SerializeField] private GameObject _quadPrefab;
+    [SerializeField] private GameObject _pentaPrefab;
+    [SerializeField] private GameObject _hexaPrefab;
+    private Dictionary<Ship.ShipType, GameObject> _shipPrefabs;
+
     protected NetworkObject _networkObject;
     protected NetworkCharacterController _controller;
-    protected ParticleSystem _particles;
+    [SerializeField] protected ParticleSystem _particles;
     protected bool isFiring = false;
+    protected bool isReady = false;
 
     public static float altitude = 2f;
-
 
     protected virtual void Awake()
     {
         _networkObject = GetComponent<NetworkObject>();
         _controller = GetComponent<NetworkCharacterController>();
-        _particles = GetComponent<ParticleSystem>();
+
+        _shipPrefabs = new Dictionary<Ship.ShipType, GameObject>
+        {
+            {ShipType.Tri, _triPrefab},
+            {ShipType.Quad, _quadPrefab},
+            {ShipType.Penta, _pentaPrefab},
+            {ShipType.Hexa, _hexaPrefab}
+        };
+    }
+
+    public override void Spawned()
+    {
+        if(shipType != ShipType.None)
+        {
+            _ConstructShipBody();
+        }
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority, InvokeResim = true)]
+    public void RPC_SetShipType(ShipType st)
+    {
+        Debug.Log("Running ship type RPC yooo: " + st);
+        shipType = st;
+    }
+
+    public static void ConstructShipBody(Changed<Ship> changed)
+    {
+        changed.Behaviour._ConstructShipBody();
+    }
+
+    private void _ConstructShipBody()
+    {
+        GameObject shipBody = Instantiate(_shipPrefabs[shipType], transform.position, transform.rotation, transform);
+
+        _particles = shipBody.gameObject.GetComponent<ParticleSystem>();
+
+        isReady = true;
     }
 
     protected void ConstrainY()
@@ -49,13 +95,13 @@ public class Ship : NetworkBehaviour
     {
         if (shouldFire)
         {
-            _particles.Play();
+            _particles?.Play();
 
             isFiring = true;
         }
         else
         {
-            _particles.Stop();
+            _particles?.Stop();
 
             isFiring = false;
         }
@@ -67,7 +113,7 @@ public class Ship : NetworkBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject);
+            Runner.Despawn(_networkObject);
         }
     }
 }

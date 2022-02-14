@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1713817082516792957}
   - component: {fileID: 1713817082516792958}
   - component: {fileID: 1713817082516792959}
+  - component: {fileID: 4116544736642873185}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -46,7 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  territoryPrefab: {fileID: 6987356028242367844, guid: eff0fad1f35c54fa28f874a5c1eaf433, type: 3}
+  _territoryPrefab:
+    RawGuidValue: eff0fad1f35c54fa28f874a5c1eaf433
   _fractalBasePrefab:
     RawGuidValue: 769f68b0130724936bb1611830c90fdd
   gridSize: 32
@@ -73,4 +75,21 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 1713817082516792958}
+  - {fileID: 4116544736642873185}
   SimulationBehaviours: []
+--- !u!114 &4116544736642873185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713817082516792952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1980225298, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  _interpolationTarget: {fileID: 0}
+  DetachInterpTarget: 0
+  SyncParent: 1
