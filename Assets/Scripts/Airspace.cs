@@ -12,7 +12,7 @@ public class Airspace : MonoBehaviour
 
         if (ship == null) return;
 
-        if(other.gameObject.CompareTag("Fractal"))
+        if(cell.crystallizedBy == null && other.gameObject.CompareTag("Fractal"))
         {    
             cell.crystallizedBy = ship;   
         }
