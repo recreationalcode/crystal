@@ -20,6 +20,7 @@ public class Ship : NetworkBehaviour
 
     public int rotationSpeed;
     public int health;
+    public HealthBar healthBar;
 
     [SerializeField] private GameObject _triPrefab;
     [SerializeField] private GameObject _quadPrefab;
@@ -47,6 +48,8 @@ public class Ship : NetworkBehaviour
             {ShipType.Penta, _pentaPrefab},
             {ShipType.Hexa, _hexaPrefab}
         };
+
+        healthBar.InitiateHealth(health);
     }
 
     public override void Spawned()
@@ -57,10 +60,15 @@ public class Ship : NetworkBehaviour
         }
     }
 
+    public override void Render()
+    {
+        healthBar.SetHealth(health);
+
+    }
+
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority, InvokeResim = true)]
     public void RPC_SetShipType(ShipType st)
     {
-        Debug.Log("Running ship type RPC yooo: " + st);
         shipType = st;
     }
 

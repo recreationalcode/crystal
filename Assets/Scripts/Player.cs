@@ -34,7 +34,6 @@ public class Player : Ship
             }
             else
             {
-                Debug.Log("About to call RPC");
                 RPC_SetShipType(ShipType.Quad);
             }
 

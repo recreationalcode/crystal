@@ -75,6 +75,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Shadow
       objectReference: {fileID: 0}
+    - target: {fileID: 7174969803007474363, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293845399255562565, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293845399255562565, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8695487698622795064, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
       propertyPath: m_Name
       value: ShadowShip
@@ -159,13 +171,26 @@ MonoBehaviour:
   _shipType: 0
   rotationSpeed: 10
   health: 5
+  healthBar: {fileID: 6739835038813370724}
   _triPrefab: {fileID: 5669504251289026243, guid: 5b327d0b29c634e08a95bb8ee66f24e4, type: 3}
   _quadPrefab: {fileID: 0}
   _pentaPrefab: {fileID: 0}
   _hexaPrefab: {fileID: 0}
+  _particles: {fileID: 0}
   target: {fileID: 0}
 --- !u!4 &5080651176210879445 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8695487698622795070, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
   m_PrefabInstance: {fileID: 4480671160426077931}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6739835038813370724 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7180495841331455887, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
+  m_PrefabInstance: {fileID: 4480671160426077931}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 396f7718025ce41beb3d9ba1ddc7ef56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

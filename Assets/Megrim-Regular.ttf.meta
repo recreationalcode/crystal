@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 4f92b0ca5d44946089a256b1bc8f4241
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Megrim
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 03433741de21a4e42bfb77b0298d213a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
