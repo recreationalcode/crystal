@@ -46,7 +46,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
       var data = new NetworkInputData();
 
       data.direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-      data.isFiring = Input.GetKeyDown("space") || Input.GetKey("space");
+      data.isFiring = Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.Space);
+      data.hasPlacedTower = Input.GetKeyDown(KeyCode.T);
 
       input.Set(data);
     }

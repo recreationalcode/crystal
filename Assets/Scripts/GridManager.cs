@@ -8,8 +8,11 @@ public class GridManager : NetworkBehaviour
     [SerializeField] private NetworkPrefabRef _territoryPrefab;
     [SerializeField] private NetworkPrefabRef _fractalBasePrefab;
     public static Transform fractalBaseTransform;
+    public static Dictionary<Vector2, NetworkObject> gridCells = new Dictionary<Vector2, NetworkObject>();
     public static HashSet<Vector2> crystal = new HashSet<Vector2>();
+    public static HashSet<Vector2> protectedCrystal = new HashSet<Vector2>();
     public static List<Vector2> shadowOutline;
+    public static int highestCrystalSize = 0;
 
     public int gridSize;
 
@@ -78,28 +81,49 @@ public class GridManager : NetworkBehaviour
         {
             for (int r = -halfGridSize; r < halfGridSize; r++)
             {
+                Vector2 axialCoordinates = new Vector2(q, r);
+
                 if (q == 0 && r == 0)
                 {
                     NetworkObject fractalBase = Runner.Spawn(_fractalBasePrefab, Vector3.zero, Quaternion.identity);
                     fractalBaseTransform = fractalBase.transform;
                     fractalBaseTransform.parent = transform;
+                    gridCells.Add(axialCoordinates, fractalBase);
+
+                    crystal.Add(axialCoordinates);
+                    highestCrystalSize = crystal.Count;
+
+                    ComputeShadowOutline();
                 }
                 else
                 {
-                    NetworkObject territoryCell = Runner.Spawn(_territoryPrefab, GetCellCenter(new Vector2(q, r)), Quaternion.identity);
+                    NetworkObject territoryCell = Runner.Spawn(_territoryPrefab, GetCellCenter(axialCoordinates), Quaternion.identity);
                     territoryCell.transform.parent = transform;
+                    gridCells.Add(axialCoordinates, territoryCell);
                 }
             }
         }
+    }
 
-        crystal.Add(new Vector2(0, 0));
+    public NetworkObject PlaceTower(Vector2 axialCoordinates, NetworkPrefabRef towerPrefab)
+    {   
+        NetworkObject tower = Runner.Spawn(towerPrefab, GetCellCenter(axialCoordinates) + new Vector3(0, 0.5f, 0), Quaternion.identity);
+        tower.transform.parent = transform;
 
-        ComputeShadowOutline();
+        protectedCrystal.Add(axialCoordinates);
+
+        return tower;
     }
 
     public void AddCrystal(Vector2 axialCoordinates)
     {
         crystal.Add(axialCoordinates);
+
+        if (crystal.Count > highestCrystalSize)
+        {
+            highestCrystalSize = crystal.Count;
+        }
+
         ComputeShadowOutline();
     }
 

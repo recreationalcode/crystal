@@ -53,12 +53,11 @@ public class ShadowShip : Ship
 
         ConstrainY();
 
-        Vector3 move = defaultTarget.position - transform.position;
+        // FIXME
+        if(target == null) target = defaultTarget;
+        if(target == null) return;
 
-        if (target != null)
-        {
-            move = target.position - transform.position;
-        }
+        Vector3 move = target.position - transform.position;
 
         float distanceToTarget = move.magnitude;
 
@@ -78,7 +77,10 @@ public class ShadowShip : Ship
     {
         targets.Add(t);
 
-        target = t;
+        if (target == null || target == defaultTarget)
+        {
+            target = t;
+        }
     }
 
     public void RemoveTarget(Transform t)

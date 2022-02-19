@@ -18,6 +18,8 @@ public class Ship : NetworkBehaviour
     public ShipType shipType { get; set; }
     protected bool isShipTypeSetByAuthority = false;
 
+    public Vector2 axialCoordinates;
+
     public int rotationSpeed;
     public int health;
     public HealthBar healthBar;
@@ -33,8 +35,19 @@ public class Ship : NetworkBehaviour
     [SerializeField] protected ParticleSystem _particles;
     protected bool isFiring = false;
     protected bool isReady = false;
+    private GridManager _gridManager;
 
     public static float altitude = 2f;
+
+    protected GridManager GetGridManager()
+    {
+        if (_gridManager == null)
+        {
+            _gridManager = GameObject.Find("GridManager(Clone)").GetComponent<GridManager>();
+        }
+
+        return _gridManager;
+    }
 
     protected virtual void Awake()
     {

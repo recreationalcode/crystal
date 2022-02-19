@@ -13,7 +13,8 @@ public class Cell : NetworkBehaviour
     public Material hexaCrystallizeMaterial;
     public Material fractureMaterial;
     public Transform cellTransform;
-
+    public bool hasTower = false;
+    
     [Networked(OnChanged = nameof(Crystallize), OnChangedTargets = OnChangedTargets.All)]
     public Ship crystallizedBy { get; set; }
 
@@ -51,7 +52,27 @@ public class Cell : NetworkBehaviour
 
         return _gridManager;
     }
-    
+
+    public Vector2 GetAxialCoordinates()
+    {
+        return axialCoordinates;
+    }
+
+    public bool IsProtected()
+    {
+        return GridManager.protectedCrystal.Contains(axialCoordinates);
+    }
+
+    public Ship.ShipType GetFaction()
+    {
+        if (crystallizedBy == null)
+        {
+            return Ship.ShipType.None;
+        }
+
+        return crystallizedBy.shipType;
+    }
+
     public override void Spawned()
     {
         axialCoordinates = GridManager.GetAxialCoordinates(transform.position);

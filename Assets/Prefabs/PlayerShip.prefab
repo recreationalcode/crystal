@@ -197,6 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   _shipType: 0
+  axialCoordinates: {x: 0, y: 0}
   rotationSpeed: 20
   health: 100
   healthBar: {fileID: 7180495841331455887}
@@ -205,6 +206,14 @@ MonoBehaviour:
   _pentaPrefab: {fileID: 0}
   _hexaPrefab: {fileID: 0}
   _particles: {fileID: 0}
+  _triTowerPrefab:
+    RawGuidValue: 774153f01679646288050a9a9774bc04
+  _quadTowerPrefab:
+    RawGuidValue: 00000000000000000000000000000000
+  _pentaTowerPrefab:
+    RawGuidValue: 00000000000000000000000000000000
+  _hexaTowerPrefab:
+    RawGuidValue: 00000000000000000000000000000000
 --- !u!1001 &7414468755402137582
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -623,7 +623,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eabf5f01cdf6244fbb23ccb6f48abc1f, type: 2}
+  - {fileID: 2100000, guid: 672b65c9a508646c286567f3edc92870, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1413,6 +1413,8 @@ MonoBehaviour:
   hexaCrystallizeMaterial: {fileID: 2100000, guid: b012563df7d91432babe95c78f71f770, type: 2}
   fractureMaterial: {fileID: 2100000, guid: 2898c1697b8bf4459b5aedaed2c982e4, type: 2}
   cellTransform: {fileID: 9079793765586796986}
+  hasTower: 0
+  _crystallizedBy: {fileID: 0}
   axialCoordinates: {x: 0, y: 0}
 --- !u!114 &8318782029711275728
 MonoBehaviour:

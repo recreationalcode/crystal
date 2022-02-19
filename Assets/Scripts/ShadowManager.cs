@@ -25,14 +25,14 @@ public class ShadowManager : NetworkBehaviour
         if (!Object.HasStateAuthority) return;
 
         // Player AIs
-        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
         
         spawnCoroutine = SpawnShadowShips();
 
@@ -41,7 +41,7 @@ public class ShadowManager : NetworkBehaviour
 
     public override void FixedUpdateNetwork() {
         timeBetweenSpawns = Mathf.Max(minTimeBetweenSpawns, maxTimeBetweenSpawns -
-            ((maxTimeBetweenSpawns / 2f) * (GridManager.crystal.Count / 50f)) -
+            ((maxTimeBetweenSpawns / 2f) * (GridManager.highestCrystalSize / 50f)) -
             ((maxTimeBetweenSpawns / 2f) * (Runner.SessionInfo.PlayerCount / 16f)));
     }
 
