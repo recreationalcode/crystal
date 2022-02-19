@@ -11,6 +11,7 @@ public class ShadowManager : NetworkBehaviour
     private float minTimeBetweenSpawns = 1f;
 
     [SerializeField] private NetworkPrefabRef _shadowShipPrefab;
+    [SerializeField] private NetworkPrefabRef _playerAIPrefab;
 
     private IEnumerator spawnCoroutine;
 
@@ -23,6 +24,16 @@ public class ShadowManager : NetworkBehaviour
     {
         if (!Object.HasStateAuthority) return;
 
+        // Player AIs
+        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+        
         spawnCoroutine = SpawnShadowShips();
 
         StartCoroutine(spawnCoroutine);
@@ -31,7 +42,7 @@ public class ShadowManager : NetworkBehaviour
     public override void FixedUpdateNetwork() {
         timeBetweenSpawns = Mathf.Max(minTimeBetweenSpawns, maxTimeBetweenSpawns -
             ((maxTimeBetweenSpawns / 2f) * (GridManager.crystal.Count / 50f)) -
-            ((maxTimeBetweenSpawns / 2f) * (Runner.SessionInfo.PlayerCount / 100f)));
+            ((maxTimeBetweenSpawns / 2f) * (Runner.SessionInfo.PlayerCount / 16f)));
     }
 
     private Vector3 RandomShadowSpawnPoint() {

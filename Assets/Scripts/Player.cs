@@ -22,8 +22,8 @@ public class Player : Ship
             _vcam.Follow = transform;
         }
     }
-        
-    public override void FixedUpdateNetwork()
+
+    protected override void InitializeShipType()
     {
         if (!isShipTypeSetByAuthority && Object.HasInputAuthority)
         {
@@ -39,6 +39,12 @@ public class Player : Ship
 
             isShipTypeSetByAuthority = true;
         }
+    }
+
+        
+    public override void FixedUpdateNetwork()
+    {
+        InitializeShipType();
 
         if (!isReady) return;
 

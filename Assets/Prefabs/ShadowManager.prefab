@@ -46,10 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  shadowRadius: 20
   timeBetweenSpawns: 15
   _shadowShipPrefab:
     RawGuidValue: 543443f749fb742489bf9aa0fca47543
+  _playerAIPrefab:
+    RawGuidValue: 892d01cb4a79b4194ae86a3659715d40
 --- !u!114 &1630329357617491871
 MonoBehaviour:
   m_ObjectHideFlags: 0

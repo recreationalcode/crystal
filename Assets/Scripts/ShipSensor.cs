@@ -8,7 +8,8 @@ public class ShipSensor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Fractal"))
+        if(ship.gameObject.CompareTag("Shadow") && other.gameObject.CompareTag("Fractal") ||
+            ship.gameObject.CompareTag("Fractal") && other.gameObject.CompareTag("Shadow"))
         {    
             // Debug.Log("Target Acquired: " + other.transform.parent.gameObject.name);
             ship.AddTarget(other.transform.parent);
@@ -17,7 +18,8 @@ public class ShipSensor : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.CompareTag("Fractal"))
+        if(ship.gameObject.CompareTag("Shadow") && other.gameObject.CompareTag("Fractal") ||
+            ship.gameObject.CompareTag("Fractal") && other.gameObject.CompareTag("Shadow"))
         {
             // Debug.Log("Target Lost: " + other.transform.parent.gameObject.name);
             ship.RemoveTarget(other.transform.parent);

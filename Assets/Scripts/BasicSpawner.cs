@@ -84,8 +84,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         // Spawn Managers
         if (mode == GameMode.Host)
         {
-            _runner.Spawn(_shadowManagerPrefab, Vector3.zero, Quaternion.identity);
             _runner.Spawn(_gridManagerPrefab, Vector3.zero, Quaternion.identity);
+            _runner.Spawn(_shadowManagerPrefab, Vector3.zero, Quaternion.identity);
         }
     }
 

@@ -72,6 +72,12 @@ public class Ship : NetworkBehaviour
         shipType = st;
     }
 
+    protected virtual void InitializeShipType()
+    {
+        shipType = ShipType.Tri;
+        isShipTypeSetByAuthority = true;
+    }
+
     public static void ConstructShipBody(Changed<Ship> changed)
     {
         changed.Behaviour._ConstructShipBody();
