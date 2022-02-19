@@ -11,8 +11,6 @@ public class PlayerAI : ShadowShip
 
     protected override void InitializeTarget()
     {
-        Debug.Log("Player" + Runner.LocalPlayer);
-        Debug.Log("Player NO" + Runner.GetPlayerObject(Runner.LocalPlayer));
         defaultTarget = Runner.GetPlayerObject(Runner.LocalPlayer).transform;
         target = defaultTarget;
     }

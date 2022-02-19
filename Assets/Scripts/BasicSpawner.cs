@@ -27,7 +27,6 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             // Keep track of the player avatars so we can remove it when they disconnect
             _spawnedCharacters.Add(player, networkPlayerObject);
 
-            Debug.Log("Player" + player);
             runner.SetPlayerObject(player, networkPlayerObject);
         }
     }

@@ -6,6 +6,17 @@ using Fusion;
 public class FractalBase : NetworkBehaviour
 {
     public int health;
+    public HealthBar healthBar;
+
+    protected virtual void Awake()
+    {
+        healthBar.InitiateHealth(health);
+    }
+
+    public override void Render()
+    {
+        healthBar.SetHealth(health);
+    }
 
     public void Hit(int numCollisionEvents, Vector3 direction)
     {
