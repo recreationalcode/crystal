@@ -59,15 +59,8 @@ public class Player : Ship
 
             Rotate(move);
 
-            if (!isFiring && data.isFiring)
-            {
-                Fire(true);
-            }
-            
-            if (isFiring && !data.isFiring)
-            {
-                Fire(false);
-            }
+            Fire(data.isFiring);
+
         }
     }
 

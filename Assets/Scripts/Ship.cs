@@ -63,7 +63,6 @@ public class Ship : NetworkBehaviour
     public override void Render()
     {
         healthBar.SetHealth(health);
-
     }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority, InvokeResim = true)]
@@ -107,13 +106,13 @@ public class Ship : NetworkBehaviour
 
     protected void Fire(bool shouldFire)
     {
-        if (shouldFire)
+        if (shouldFire && !isFiring)
         {
             _particles?.Play();
 
             isFiring = true;
         }
-        else
+        else if (!shouldFire && isFiring)
         {
             _particles?.Stop();
 

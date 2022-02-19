@@ -6,16 +6,24 @@ using Fusion;
 public class ShadowShip : Ship
 {
     public Transform target = null;
+    public Transform defaultTarget = null;
+    
+    protected static float fireDistanceToTarget = 10f;
+    protected static float maxDistanceToTarget = 7.5f;
+
     private HashSet<Transform> targets = new HashSet<Transform>();
 
-    private static Vector3 defaultTargetPosition = new Vector3(0, altitude, 0);
-    private static float maxDistanceToTarget = 7.5f;
-    
-    protected override void Awake()
+    public override void Spawned()
     {
-        base.Awake();
+        base.Spawned();
 
-        target = GridManager.fractalBaseTransform;
+        InitializeTarget();
+    }
+
+    protected virtual void InitializeTarget()
+    {
+        defaultTarget = GridManager.fractalBaseTransform;
+        target = defaultTarget;
     }
 
     protected override void InitializeShipType()
@@ -29,6 +37,13 @@ public class ShadowShip : Ship
         }
     }
 
+    private bool ShouldFire(float distance)
+    {
+        return target != null && distance <= fireDistanceToTarget && (
+            gameObject.CompareTag("Shadow") && target.gameObject.CompareTag("Fractal") ||
+            gameObject.CompareTag("Fractal") && target.gameObject.CompareTag("Shadow"));
+    }
+
 
     public override void FixedUpdateNetwork()
     {
@@ -38,7 +53,7 @@ public class ShadowShip : Ship
 
         ConstrainY();
 
-        Vector3 move = defaultTargetPosition - transform.position;
+        Vector3 move = defaultTarget.position - transform.position;
 
         if (target != null)
         {
@@ -56,14 +71,7 @@ public class ShadowShip : Ship
 
         Rotate(move);
 
-        if (target != null && !isFiring)
-        {
-            Fire(true);
-        }
-        else if (target == null && isFiring)
-        {
-            Fire(false);
-        }
+        Fire(ShouldFire(distanceToTarget));
     }
 
     public void AddTarget(Transform t)
@@ -79,7 +87,7 @@ public class ShadowShip : Ship
 
         if (targets.Count == 0)
         {
-            target = null;
+            target = defaultTarget;
         }
         else if (target == t)
         {
