@@ -165,15 +165,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   _shipType: 0
-  rotationSpeed: 10
-  health: 5
+  axialCoordinates: {x: 0, y: 0}
+  rotationSpeed: 7
+  health: 4
   healthBar: {fileID: 6739835038813370724}
   _triPrefab: {fileID: 5669504251289026243, guid: 5b327d0b29c634e08a95bb8ee66f24e4, type: 3}
   _quadPrefab: {fileID: 0}
   _pentaPrefab: {fileID: 0}
   _hexaPrefab: {fileID: 0}
-  _particles: {fileID: 0}
+  _triTowerPrefab:
+    RawGuidValue: 00000000000000000000000000000000
+  _quadTowerPrefab:
+    RawGuidValue: 00000000000000000000000000000000
+  _pentaTowerPrefab:
+    RawGuidValue: 00000000000000000000000000000000
+  _hexaTowerPrefab:
+    RawGuidValue: 00000000000000000000000000000000
   target: {fileID: 0}
+  defaultTarget: {fileID: 0}
 --- !u!4 &5080651176210879445 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8695487698622795070, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}

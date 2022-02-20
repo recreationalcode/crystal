@@ -95,6 +95,14 @@ PrefabInstance:
       propertyPath: NetworkGuid.RawGuidValue.Array.data[1]
       value: 4637987819240482890
       objectReference: {fileID: 0}
+    - target: {fileID: 8695487698622795069, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
+      propertyPath: Config.Braking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8695487698622795069, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
+      propertyPath: Config.Acceleration
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8695487698622795070, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -170,15 +178,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   _shipType: 0
-  rotationSpeed: 20
-  health: 100
+  axialCoordinates: {x: 0, y: 0}
+  rotationSpeed: 15
+  health: 50
   healthBar: {fileID: 8475139327066574219}
   _triPrefab: {fileID: 659456896607626658, guid: 44574a8bf16c742c487312f61d73be6f, type: 3}
   _quadPrefab: {fileID: 3939165873589691056, guid: 9991db4b1b97c48ebad616a7457f7a93, type: 3}
   _pentaPrefab: {fileID: 0}
-  _hexaPrefab: {fileID: 0}
-  _particles: {fileID: 0}
+  _hexaPrefab: {fileID: 8519664324089701079, guid: 3b8975dce51294e2e9c4a0c0c89724f6, type: 3}
+  _triTowerPrefab:
+    RawGuidValue: 774153f01679646288050a9a9774bc04
+  _quadTowerPrefab:
+    RawGuidValue: 188845d0fa88640be9b05dc2b567fad3
+  _pentaTowerPrefab:
+    RawGuidValue: 00000000000000000000000000000000
+  _hexaTowerPrefab:
+    RawGuidValue: e8edd02f034164698a759adecf0c87d6
   target: {fileID: 0}
+  defaultTarget: {fileID: 0}
 --- !u!114 &8475139327066574219 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7180495841331455887, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}

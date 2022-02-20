@@ -13,7 +13,6 @@ public class Cell : NetworkBehaviour
     public Material hexaCrystallizeMaterial;
     public Material fractureMaterial;
     public Transform cellTransform;
-    public bool hasTower = false;
     
     [Networked(OnChanged = nameof(Crystallize), OnChangedTargets = OnChangedTargets.All)]
     public Ship crystallizedBy { get; set; }

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  timeBetweenSpawns: 10
+  timeBetweenSpawns: 4
   _shadowShipPrefab:
     RawGuidValue: 543443f749fb742489bf9aa0fca47543
   _playerAIPrefab:

@@ -32,7 +32,7 @@ public class Airspace : MonoBehaviour
         {    
             cell.crystallizedBy = null;   
         }
-        
+
         if (ship is Player)
         {
             Player player = ship as Player;
@@ -45,6 +45,14 @@ public class Airspace : MonoBehaviour
                 GameObject.ReferenceEquals(player.gameObject, runner.GetPlayerObject(runner.LocalPlayer).gameObject))
             {
                 player.EnableTowerPlacement(this);
+            }
+        }
+        // TODO Remove when AI is no longer required for demo purposes
+        else if (ship is PlayerAI)
+        {
+            if(cell.GetFaction() == ship.shipType && !cell.IsProtected() && Random.value <= 0.04f)
+            {
+                GridManager.currentGridManager.PlaceTower(cell.GetAxialCoordinates(), ship.GetTowerPrefab());
             }
         }
     }

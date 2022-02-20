@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 659456896607626664, guid: 44574a8bf16c742c487312f61d73be6f, type: 3}
       propertyPath: m_VersionIndex
-      value: 1996
+      value: 1999
       objectReference: {fileID: 0}
     - target: {fileID: 659456896607626664, guid: 44574a8bf16c742c487312f61d73be6f, type: 3}
       propertyPath: m_Faces.Array.size
@@ -5254,7 +5254,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: cad6e7aa8c5414486918097367de8507, type: 2}
     - target: {fileID: 6292755045776072558, guid: 44574a8bf16c742c487312f61d73be6f, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

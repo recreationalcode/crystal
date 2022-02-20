@@ -7,6 +7,8 @@ public class FractalBase : NetworkBehaviour
 {
     public int health;
     public HealthBar healthBar;
+    public bool isMain = false;
+    public Vector2 axialCoordinates;
 
     protected virtual void Awake()
     {
@@ -24,7 +26,13 @@ public class FractalBase : NetworkBehaviour
 
         if (health <= 0)
         {
-            Runner.Shutdown();
+            if (isMain)
+            {
+                Runner.Shutdown();
+            }
+
+            GridManager.OnTowerDestroyed(axialCoordinates);
+            Destroy(gameObject);
         }
     }
 

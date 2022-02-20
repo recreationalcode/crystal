@@ -176,10 +176,10 @@ MonoBehaviour:
       m_Bits: 4294967295
     TriggerInteraction: 0
     AirControl: 1
-    Acceleration: 8
-    Braking: 1
+    Acceleration: 10
+    Braking: 1.5
     BaseJumpImpulse: 5
-    MaxSpeed: 10
+    MaxSpeed: 7
     MaxSlope: 60
     MaxSlopeSpeed: 5
     _gravity: {x: 0, y: 0, z: 0}
@@ -198,22 +198,21 @@ MonoBehaviour:
   _interpolationDataSource: 0
   _shipType: 0
   axialCoordinates: {x: 0, y: 0}
-  rotationSpeed: 20
+  rotationSpeed: 12
   health: 100
   healthBar: {fileID: 7180495841331455887}
   _triPrefab: {fileID: 659456896607626658, guid: 44574a8bf16c742c487312f61d73be6f, type: 3}
   _quadPrefab: {fileID: 3939165873589691056, guid: 9991db4b1b97c48ebad616a7457f7a93, type: 3}
   _pentaPrefab: {fileID: 0}
-  _hexaPrefab: {fileID: 0}
-  _particles: {fileID: 0}
+  _hexaPrefab: {fileID: 8519664324089701079, guid: 3b8975dce51294e2e9c4a0c0c89724f6, type: 3}
   _triTowerPrefab:
     RawGuidValue: 774153f01679646288050a9a9774bc04
   _quadTowerPrefab:
-    RawGuidValue: 00000000000000000000000000000000
+    RawGuidValue: 188845d0fa88640be9b05dc2b567fad3
   _pentaTowerPrefab:
     RawGuidValue: 00000000000000000000000000000000
   _hexaTowerPrefab:
-    RawGuidValue: 00000000000000000000000000000000
+    RawGuidValue: e8edd02f034164698a759adecf0c87d6
 --- !u!1001 &7414468755402137582
 PrefabInstance:
   m_ObjectHideFlags: 0

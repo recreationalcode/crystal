@@ -7,25 +7,20 @@ using Cinemachine;
 public class Player : Ship
 {
     private CinemachineVirtualCamera _vcam;
-
-    [SerializeField] private NetworkPrefabRef _triTowerPrefab;
-    [SerializeField] private NetworkPrefabRef _quadTowerPrefab;
-    [SerializeField] private NetworkPrefabRef _pentaTowerPrefab;
-    [SerializeField] private NetworkPrefabRef _hexaTowerPrefab;
-    private Dictionary<Ship.ShipType, NetworkPrefabRef> _towerPrefabs;
-    private HashSet<NetworkObject> _towers = new HashSet<NetworkObject>();
+    
+    private HashSet<NetworkObject> towers = new HashSet<NetworkObject>();
     private Airspace targetAirspace = null;
     private Cell targetCell = null;
     private int availableTowerCount = 5;
 
     public bool HasAvailableTowers()
     {
-        return (availableTowerCount - _towers.Count) > 0;
+        return (availableTowerCount - towers.Count) > 0;
     }
 
     private void PlaceTower()
     {
-        _towers.Add(GetGridManager().PlaceTower(axialCoordinates, _towerPrefabs[shipType]));
+        towers.Add(GetGridManager().PlaceTower(axialCoordinates, GetTowerPrefab()));
         SetTargetAirspace(null);
     }
 
@@ -72,14 +67,6 @@ public class Player : Ship
         base.Awake();
 
         _vcam = GameObject.Find("VCAM").GetComponent<CinemachineVirtualCamera>();
-
-        _towerPrefabs = new Dictionary<Ship.ShipType, NetworkPrefabRef>
-        {
-            {ShipType.Tri, _triTowerPrefab},
-            {ShipType.Quad, _quadTowerPrefab},
-            {ShipType.Penta, _pentaTowerPrefab},
-            {ShipType.Hexa, _hexaTowerPrefab}
-        };
     }
 
     private void Start()
@@ -97,7 +84,7 @@ public class Player : Ship
             // TODO Change this to some kind of player preference or ideally from the player NFT!
             if (Runner.IsServer)
             {
-                shipType = ShipType.Tri;
+                shipType = ShipType.Hexa;
             }
             else
             {

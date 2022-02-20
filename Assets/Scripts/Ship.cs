@@ -28,18 +28,25 @@ public class Ship : NetworkBehaviour
     [SerializeField] private GameObject _quadPrefab;
     [SerializeField] private GameObject _pentaPrefab;
     [SerializeField] private GameObject _hexaPrefab;
-    private Dictionary<Ship.ShipType, GameObject> _shipPrefabs;
+    private Dictionary<ShipType, GameObject> _shipPrefabs;
+
+    [SerializeField] private NetworkPrefabRef _triTowerPrefab;
+    [SerializeField] private NetworkPrefabRef _quadTowerPrefab;
+    [SerializeField] private NetworkPrefabRef _pentaTowerPrefab;
+    [SerializeField] private NetworkPrefabRef _hexaTowerPrefab;
+    private Dictionary<ShipType, NetworkPrefabRef> _towerPrefabs;
 
     protected NetworkObject _networkObject;
     protected NetworkCharacterController _controller;
-    [SerializeField] protected ParticleSystem _particles;
+    protected ParticleSystem _particles;
+    protected GameObject _shipBody;
     protected bool isFiring = false;
     protected bool isReady = false;
     private GridManager _gridManager;
 
     public static float altitude = 2f;
 
-    protected GridManager GetGridManager()
+    public GridManager GetGridManager()
     {
         if (_gridManager == null)
         {
@@ -54,7 +61,7 @@ public class Ship : NetworkBehaviour
         _networkObject = GetComponent<NetworkObject>();
         _controller = GetComponent<NetworkCharacterController>();
 
-        _shipPrefabs = new Dictionary<Ship.ShipType, GameObject>
+        _shipPrefabs = new Dictionary<ShipType, GameObject>
         {
             {ShipType.Tri, _triPrefab},
             {ShipType.Quad, _quadPrefab},
@@ -62,7 +69,18 @@ public class Ship : NetworkBehaviour
             {ShipType.Hexa, _hexaPrefab}
         };
 
-        healthBar.InitiateHealth(health);
+        _towerPrefabs = new Dictionary<ShipType, NetworkPrefabRef>
+        {
+            {ShipType.Tri, _triTowerPrefab},
+            {ShipType.Quad, _quadTowerPrefab},
+            {ShipType.Penta, _pentaTowerPrefab},
+            {ShipType.Hexa, _hexaTowerPrefab}
+        };
+    }
+
+    public NetworkPrefabRef GetTowerPrefab()
+    {
+        return _towerPrefabs[shipType];
     }
 
     public override void Spawned()
@@ -71,6 +89,8 @@ public class Ship : NetworkBehaviour
         {
             _ConstructShipBody();
         }
+
+        healthBar.InitiateHealth(health);
     }
 
     public override void Render()
@@ -97,9 +117,16 @@ public class Ship : NetworkBehaviour
 
     private void _ConstructShipBody()
     {
-        GameObject shipBody = Instantiate(_shipPrefabs[shipType], transform.position, transform.rotation, transform);
+        isReady = false;
 
-        _particles = shipBody.gameObject.GetComponent<ParticleSystem>();
+        if (_shipBody != null)
+        {
+            Destroy(_shipBody);
+        }
+
+        _shipBody = Instantiate(_shipPrefabs[shipType], transform.position, transform.rotation, transform);
+
+        _particles = _shipBody.gameObject.GetComponent<ParticleSystem>();
 
         isReady = true;
     }

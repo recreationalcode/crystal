@@ -109,6 +109,8 @@ MonoBehaviour:
   _interpolationDataSource: 0
   health: 250
   healthBar: {fileID: 731122332746391184}
+  isMain: 0
+  axialCoordinates: {x: 0, y: 0}
   target: {fileID: 0}
   defaultTarget: {fileID: 0}
   turretRotationSpeed: 10
@@ -355,7 +357,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 10
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -471,7 +473,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.15
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1054,7 +1056,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 2
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4960,7 +4962,7 @@ Transform:
   m_GameObject: {fileID: 3173640765253706188}
   m_LocalRotation: {x: 1.110223e-17, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 0.75, y: 2, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2990097668529901521}
@@ -5178,7 +5180,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4870
+  m_VersionIndex: 4873
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5871,7 +5873,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4585
+  m_VersionIndex: 4588
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

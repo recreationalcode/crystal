@@ -6,43 +6,57 @@ using Fusion;
 public class ShadowManager : NetworkBehaviour
 {
     public float timeBetweenSpawns;
-
+    private float timeBetweenAISpawns;
     private float maxTimeBetweenSpawns;
     private float minTimeBetweenSpawns = 1f;
 
+    public static float elapsedTime = 0f;
+    private static float elapsedTimeOffset;
+
     [SerializeField] private NetworkPrefabRef _shadowShipPrefab;
     [SerializeField] private NetworkPrefabRef _playerAIPrefab;
+
+    public static HashSet<NetworkObject> shadowShips = new HashSet<NetworkObject>();
+    public static HashSet<NetworkObject> playerAIShips = new HashSet<NetworkObject>();
 
     private IEnumerator spawnCoroutine;
 
     private void Awake()
     {
         maxTimeBetweenSpawns = timeBetweenSpawns;
+        timeBetweenAISpawns = 10 * timeBetweenSpawns;
     }
 
     public override void Spawned()
     {
         if (!Object.HasStateAuthority) return;
 
-        // Player AIs
-        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        // Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
-        
+        elapsedTimeOffset = Time.realtimeSinceStartup;
+
         spawnCoroutine = SpawnShadowShips();
 
         StartCoroutine(spawnCoroutine);
+
+        // TODO Remove when AI is no longer required for demo purposes
+        StartCoroutine(SpawnPlayerAIShips());
     }
 
     public override void FixedUpdateNetwork() {
+        elapsedTime = Time.realtimeSinceStartup - elapsedTimeOffset;
+
         timeBetweenSpawns = Mathf.Max(minTimeBetweenSpawns, maxTimeBetweenSpawns -
-            ((maxTimeBetweenSpawns / 2f) * (GridManager.highestCrystalSize / 50f)) -
-            ((maxTimeBetweenSpawns / 2f) * (Runner.SessionInfo.PlayerCount / 16f)));
+            ((maxTimeBetweenSpawns / 2f) * (GridManager.highestCrystalSize / 30)) -
+            ((maxTimeBetweenSpawns / 2f) * (Runner.SessionInfo.PlayerCount + playerAIShips.Count / 10f)));
+    }
+
+    public static float GetShadowHealthFactor()
+    {
+        return 1 + (ShadowManager.elapsedTime / 60);
+    }
+
+    public static float GetShadowDamageFactor()
+    {
+        return 1 + (ShadowManager.elapsedTime / 60);
     }
 
     private Vector3 RandomShadowSpawnPoint() {
@@ -60,6 +74,20 @@ public class ShadowManager : NetworkBehaviour
 
             NetworkObject shadowShip = Runner.Spawn(_shadowShipPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
             shadowShip.transform.parent = transform;
+            shadowShips.Add(shadowShip);
+        }
+    }
+
+    private IEnumerator SpawnPlayerAIShips()
+    {         
+        while (true)
+        {
+            if (playerAIShips.Count == 10) yield break;
+
+            NetworkObject playerAIShip = Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
+            playerAIShips.Add(playerAIShip);
+
+            yield return new WaitForSeconds(timeBetweenAISpawns);
         }
     }
 

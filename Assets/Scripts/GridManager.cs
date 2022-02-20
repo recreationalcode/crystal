@@ -8,11 +8,13 @@ public class GridManager : NetworkBehaviour
     [SerializeField] private NetworkPrefabRef _territoryPrefab;
     [SerializeField] private NetworkPrefabRef _fractalBasePrefab;
     public static Transform fractalBaseTransform;
-    public static Dictionary<Vector2, NetworkObject> gridCells = new Dictionary<Vector2, NetworkObject>();
+    public static Dictionary<Vector2Int, NetworkObject> gridCells = new Dictionary<Vector2Int, NetworkObject>();
     public static HashSet<Vector2> crystal = new HashSet<Vector2>();
     public static HashSet<Vector2> protectedCrystal = new HashSet<Vector2>();
     public static List<Vector2> shadowOutline;
     public static int highestCrystalSize = 0;
+    
+    public static GridManager currentGridManager;
 
     public int gridSize;
 
@@ -73,6 +75,8 @@ public class GridManager : NetworkBehaviour
 
     public override void Spawned()
     {
+        currentGridManager = this;
+
         if (!Object.HasStateAuthority) return;
 
         int halfGridSize = gridSize / 2;
@@ -88,7 +92,7 @@ public class GridManager : NetworkBehaviour
                     NetworkObject fractalBase = Runner.Spawn(_fractalBasePrefab, Vector3.zero, Quaternion.identity);
                     fractalBaseTransform = fractalBase.transform;
                     fractalBaseTransform.parent = transform;
-                    gridCells.Add(axialCoordinates, fractalBase);
+                    gridCells.Add(Vector2Int.RoundToInt(axialCoordinates), fractalBase);
 
                     crystal.Add(axialCoordinates);
                     highestCrystalSize = crystal.Count;
@@ -99,7 +103,7 @@ public class GridManager : NetworkBehaviour
                 {
                     NetworkObject territoryCell = Runner.Spawn(_territoryPrefab, GetCellCenter(axialCoordinates), Quaternion.identity);
                     territoryCell.transform.parent = transform;
-                    gridCells.Add(axialCoordinates, territoryCell);
+                    gridCells.Add(Vector2Int.RoundToInt(axialCoordinates), territoryCell);
                 }
             }
         }
@@ -109,10 +113,17 @@ public class GridManager : NetworkBehaviour
     {   
         NetworkObject tower = Runner.Spawn(towerPrefab, GetCellCenter(axialCoordinates) + new Vector3(0, 0.5f, 0), Quaternion.identity);
         tower.transform.parent = transform;
+        tower.gameObject.GetComponent<FractalBase>().axialCoordinates = axialCoordinates;
 
         protectedCrystal.Add(axialCoordinates);
 
         return tower;
+    }
+
+    public static void OnTowerDestroyed(Vector2 axialCoordinates)
+    {
+        // FIXME Convert data structures to us Vector2Int
+        protectedCrystal.Remove(axialCoordinates);
     }
 
     public void AddCrystal(Vector2 axialCoordinates)

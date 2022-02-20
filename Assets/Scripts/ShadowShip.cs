@@ -15,9 +15,16 @@ public class ShadowShip : Ship
 
     public override void Spawned()
     {
+        InitializeHealth();
+
         base.Spawned();
 
         InitializeTarget();
+    }
+
+    protected virtual void InitializeHealth()
+    {
+        health = Mathf.RoundToInt(health * ShadowManager.GetShadowHealthFactor());
     }
 
     protected virtual void InitializeTarget()
@@ -57,7 +64,7 @@ public class ShadowShip : Ship
         if(target == null) target = defaultTarget;
         if(target == null) return;
 
-        Vector3 move = target.position - transform.position;
+        Vector3 move = new Vector3(target.position.x, 0, target.position.z) - transform.position;
 
         float distanceToTarget = move.magnitude;
 
@@ -77,7 +84,7 @@ public class ShadowShip : Ship
     {
         targets.Add(t);
 
-        if (target == null || target == defaultTarget)
+        if (target == null || target == defaultTarget || (t.gameObject.CompareTag("Shadow") && !target.gameObject.CompareTag("Shadow")))
         {
             target = t;
         }
