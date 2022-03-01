@@ -1,64 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &9193148860985115674
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1528299397698848938}
-  - component: {fileID: 3208748342328392899}
-  - component: {fileID: 7455303499111814804}
-  m_Layer: 0
-  m_Name: Sensor
-  m_TagString: Shadow
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1528299397698848938
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9193148860985115674}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5080651176210879445}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &3208748342328392899
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9193148860985115674}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7455303499111814804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9193148860985115674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d40ad8c7d0ac473dae0f23c26e060e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ship: {fileID: 7321811432290249707}
 --- !u!1001 &4480671160426077931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67,6 +8,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3560205191197509696, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
+      propertyPath: ship
+      value: 
+      objectReference: {fileID: 7321811432290249707}
     - target: {fileID: 5545425899828755457, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
       propertyPath: ship
       value: 
@@ -141,10 +86,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8695487698622795009, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8695487698622795070, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1528299397698848938}
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
 --- !u!1 &5080651176210879443 stripped
 GameObject:
@@ -164,10 +106,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  _shipType: 0
+  _faction: 0
   axialCoordinates: {x: 0, y: 0}
   rotationSpeed: 7
   health: 4
+  damage: 1
   healthBar: {fileID: 6739835038813370724}
   _triPrefab: {fileID: 5669504251289026243, guid: 5b327d0b29c634e08a95bb8ee66f24e4, type: 3}
   _quadPrefab: {fileID: 0}
@@ -183,11 +126,6 @@ MonoBehaviour:
     RawGuidValue: 00000000000000000000000000000000
   target: {fileID: 0}
   defaultTarget: {fileID: 0}
---- !u!4 &5080651176210879445 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8695487698622795070, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}
-  m_PrefabInstance: {fileID: 4480671160426077931}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6739835038813370724 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7180495841331455887, guid: dd6a3e159fcc54a3c9d42b97cd96c8da, type: 3}

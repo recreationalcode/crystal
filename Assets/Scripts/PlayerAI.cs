@@ -17,6 +17,11 @@ public class PlayerAI : ShadowShip
         return;
     }
 
+    protected override void InitializeDamage()
+    {
+        return;
+    }
+
     protected override void InitializeTarget()
     {
         ChangeDefaultTarget();
@@ -32,15 +37,15 @@ public class PlayerAI : ShadowShip
 
             if (r <= 0.40f)
             {
-                shipType = ShipType.Tri;
+                faction = Faction.Tri;
             }
             else if (r <= 0.80f)
             {
-                shipType = ShipType.Quad;
+                faction = Faction.Quad;
             }
             else
             {
-                shipType = ShipType.Hexa;
+                faction = Faction.Hexa;
             }
 
             isShipTypeSetByAuthority = true;

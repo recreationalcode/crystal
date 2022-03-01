@@ -16,6 +16,7 @@ public class ShadowShip : Ship
     public override void Spawned()
     {
         InitializeHealth();
+        InitializeDamage();
 
         base.Spawned();
 
@@ -25,6 +26,11 @@ public class ShadowShip : Ship
     protected virtual void InitializeHealth()
     {
         health = Mathf.RoundToInt(health * ShadowManager.GetShadowHealthFactor());
+    }
+
+    protected virtual void InitializeDamage()
+    {
+        baseDamage = Mathf.RoundToInt(baseDamage * ShadowManager.GetShadowDamageFactor());
     }
 
     protected virtual void InitializeTarget()
@@ -38,7 +44,7 @@ public class ShadowShip : Ship
         if (!isShipTypeSetByAuthority && Object.HasStateAuthority)
         {
             // TODO This should be conditional
-            shipType = ShipType.Tri;
+            faction = Faction.Tri;
 
             isShipTypeSetByAuthority = true;
         }

@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 4876
       objectReference: {fileID: 0}
+    - target: {fileID: 8222535462448278792, guid: 0f3809e5459004d0ab31bbae2b706a6c, type: 3}
+      propertyPath: faction
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8969209452665387497, guid: 0f3809e5459004d0ab31bbae2b706a6c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

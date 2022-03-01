@@ -5,7 +5,7 @@ using Fusion;
 
 public class Ship : NetworkBehaviour
 {
-    public enum ShipType
+    public enum Faction
     {
         None,
         Tri, 
@@ -15,7 +15,7 @@ public class Ship : NetworkBehaviour
     };
     
     [Networked(OnChanged = nameof(ConstructShipBody), OnChangedTargets = OnChangedTargets.All)]
-    public ShipType shipType { get; set; }
+    public Faction faction { get; set; }
     protected bool isShipTypeSetByAuthority = false;
 
     public Vector2 axialCoordinates;
@@ -23,18 +23,22 @@ public class Ship : NetworkBehaviour
     public int rotationSpeed;
     public int health;
     public HealthBar healthBar;
+    public int baseDamage = 1;
+    private int damageBoost = 0;
+    private const int FractalBoost = 1;
+    private const int FactionBoost = 2;
 
     [SerializeField] private GameObject _triPrefab;
     [SerializeField] private GameObject _quadPrefab;
     [SerializeField] private GameObject _pentaPrefab;
     [SerializeField] private GameObject _hexaPrefab;
-    private Dictionary<ShipType, GameObject> _shipPrefabs;
+    private Dictionary<Faction, GameObject> _shipPrefabs;
 
     [SerializeField] private NetworkPrefabRef _triTowerPrefab;
     [SerializeField] private NetworkPrefabRef _quadTowerPrefab;
     [SerializeField] private NetworkPrefabRef _pentaTowerPrefab;
     [SerializeField] private NetworkPrefabRef _hexaTowerPrefab;
-    private Dictionary<ShipType, NetworkPrefabRef> _towerPrefabs;
+    private Dictionary<Faction, NetworkPrefabRef> _towerPrefabs;
 
     protected NetworkObject _networkObject;
     protected NetworkCharacterController _controller;
@@ -56,36 +60,49 @@ public class Ship : NetworkBehaviour
         return _gridManager;
     }
 
+    public static Ship GetShipReference(Object o) {
+        if (o is Component)
+        {
+            return (o as Component).transform.parent.gameObject.GetComponent<Ship>();
+        }
+        else if (o is GameObject)
+        {
+            return (o as GameObject).transform.parent.gameObject.GetComponent<Ship>();
+        }
+
+        return null;
+    }
+
     protected virtual void Awake()
     {
         _networkObject = GetComponent<NetworkObject>();
         _controller = GetComponent<NetworkCharacterController>();
 
-        _shipPrefabs = new Dictionary<ShipType, GameObject>
+        _shipPrefabs = new Dictionary<Faction, GameObject>
         {
-            {ShipType.Tri, _triPrefab},
-            {ShipType.Quad, _quadPrefab},
-            {ShipType.Penta, _pentaPrefab},
-            {ShipType.Hexa, _hexaPrefab}
+            {Faction.Tri, _triPrefab},
+            {Faction.Quad, _quadPrefab},
+            {Faction.Penta, _pentaPrefab},
+            {Faction.Hexa, _hexaPrefab}
         };
 
-        _towerPrefabs = new Dictionary<ShipType, NetworkPrefabRef>
+        _towerPrefabs = new Dictionary<Faction, NetworkPrefabRef>
         {
-            {ShipType.Tri, _triTowerPrefab},
-            {ShipType.Quad, _quadTowerPrefab},
-            {ShipType.Penta, _pentaTowerPrefab},
-            {ShipType.Hexa, _hexaTowerPrefab}
+            {Faction.Tri, _triTowerPrefab},
+            {Faction.Quad, _quadTowerPrefab},
+            {Faction.Penta, _pentaTowerPrefab},
+            {Faction.Hexa, _hexaTowerPrefab}
         };
     }
 
     public NetworkPrefabRef GetTowerPrefab()
     {
-        return _towerPrefabs[shipType];
+        return _towerPrefabs[faction];
     }
 
     public override void Spawned()
     {
-        if(shipType != ShipType.None)
+        if(faction != Faction.None)
         {
             _ConstructShipBody();
         }
@@ -99,15 +116,20 @@ public class Ship : NetworkBehaviour
     }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority, InvokeResim = true)]
-    public void RPC_SetShipType(ShipType st)
+    public void RPC_SetShipType(Faction faction)
     {
-        shipType = st;
+        this.faction = faction;
     }
 
     protected virtual void InitializeShipType()
     {
-        shipType = ShipType.Tri;
+        faction = Faction.Tri;
         isShipTypeSetByAuthority = true;
+    }
+
+    public int GetDamage()
+    {
+        return baseDamage + damageBoost;
     }
 
     public static void ConstructShipBody(Changed<Ship> changed)
@@ -124,7 +146,7 @@ public class Ship : NetworkBehaviour
             Destroy(_shipBody);
         }
 
-        _shipBody = Instantiate(_shipPrefabs[shipType], transform.position, transform.rotation, transform);
+        _shipBody = Instantiate(_shipPrefabs[faction], transform.position, transform.rotation, transform);
 
         _particles = _shipBody.gameObject.GetComponent<ParticleSystem>();
 
@@ -167,6 +189,50 @@ public class Ship : NetworkBehaviour
         if (health <= 0)
         {
             Runner.Despawn(_networkObject);
+        }
+    }
+
+    public void Boost(Ship ship)
+    {
+        if (ship == this) return;
+
+        if (faction == ship.faction)
+        {
+            damageBoost += FactionBoost;
+        } else {
+            damageBoost += FractalBoost;
+        }
+    }
+
+    public void Boost(FractalBase fractalBase)
+    {
+        if (faction == fractalBase.faction || fractalBase.faction == Ship.Faction.None)
+        {
+            damageBoost += FactionBoost;
+        } else {
+            damageBoost += FractalBoost;
+        }
+    }
+
+    public void Hinder(Ship ship)
+    {
+        if (ship == this) return;
+
+        if (faction == ship.faction)
+        {
+            damageBoost -= FactionBoost;
+        } else {
+            damageBoost -= FractalBoost;
+        }
+    }
+
+    public void Hinder(FractalBase fractalBase)
+    {
+        if (faction == fractalBase.faction || fractalBase.faction == Ship.Faction.None)
+        {
+            damageBoost -= FactionBoost;
+        } else {
+            damageBoost -= FractalBoost;
         }
     }
 }

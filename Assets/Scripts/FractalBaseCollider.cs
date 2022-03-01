@@ -16,7 +16,12 @@ public class FractalBaseCollider : MonoBehaviour
 
         if (other.gameObject.CompareTag("Shadow"))
         {
-            fractalBase.Hit(numCollisionEvents, -pec[0].normal);        
+            Ship otherShip = Ship.GetShipReference(other);
+
+            if (otherShip != null)
+            {
+                fractalBase.Hit(otherShip.GetDamage() * numCollisionEvents, -pec[0].normal);
+            }
         }
     }
 }

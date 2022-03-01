@@ -23,7 +23,7 @@ public class Cell : NetworkBehaviour
     private Vector3 _fracturePos;
     private Renderer _renderer;
     private GridManager _gridManager;
-    private Dictionary<Ship.ShipType, Material> _crystallizeMaterials;
+    private Dictionary<Ship.Faction, Material> _crystallizeMaterials;
 
     private void Awake()
     {
@@ -33,12 +33,12 @@ public class Cell : NetworkBehaviour
         _renderer.material.DisableKeyword("_EMISSION");
         _renderer.material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack;
 
-        _crystallizeMaterials = new Dictionary<Ship.ShipType, Material>
+        _crystallizeMaterials = new Dictionary<Ship.Faction, Material>
         {
-            {Ship.ShipType.Tri, triCrystallizeMaterial},
-            {Ship.ShipType.Quad, quadCrystallizeMaterial},
-            {Ship.ShipType.Penta, pentaCrystallizeMaterial},
-            {Ship.ShipType.Hexa, hexaCrystallizeMaterial}
+            {Ship.Faction.Tri, triCrystallizeMaterial},
+            {Ship.Faction.Quad, quadCrystallizeMaterial},
+            {Ship.Faction.Penta, pentaCrystallizeMaterial},
+            {Ship.Faction.Hexa, hexaCrystallizeMaterial}
         };
     }
 
@@ -62,14 +62,14 @@ public class Cell : NetworkBehaviour
         return GridManager.protectedCrystal.Contains(axialCoordinates);
     }
 
-    public Ship.ShipType GetFaction()
+    public Ship.Faction GetFaction()
     {
         if (crystallizedBy == null)
         {
-            return Ship.ShipType.None;
+            return Ship.Faction.None;
         }
 
-        return crystallizedBy.shipType;
+        return crystallizedBy.faction;
     }
 
     public override void Spawned()
@@ -97,7 +97,7 @@ public class Cell : NetworkBehaviour
             _renderer.material.EnableKeyword("_EMISSION");
             _renderer.material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
 
-            StartCoroutine(_Change(crystallizeTime, _crystallizePos, _crystallizeMaterials[crystallizedBy.shipType], true));            
+            StartCoroutine(_Change(crystallizeTime, _crystallizePos, _crystallizeMaterials[crystallizedBy.faction], true));
         }
         else
         {

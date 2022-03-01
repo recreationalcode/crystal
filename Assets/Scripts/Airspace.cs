@@ -39,7 +39,7 @@ public class Airspace : MonoBehaviour
 
             NetworkRunner runner = NetworkRunner.GetRunnerForGameObject(player.gameObject);
 
-            if(cell.GetFaction() == player.shipType &&
+            if(cell.GetFaction() == player.faction &&
                 player.HasAvailableTowers() &&
                 !cell.IsProtected() &&
                 GameObject.ReferenceEquals(player.gameObject, runner.GetPlayerObject(runner.LocalPlayer).gameObject))
@@ -50,7 +50,7 @@ public class Airspace : MonoBehaviour
         // TODO Remove when AI is no longer required for demo purposes
         else if (ship is PlayerAI)
         {
-            if(cell.GetFaction() == ship.shipType && !cell.IsProtected() && Random.value <= 0.04f)
+            if(cell.GetFaction() == ship.faction && !cell.IsProtected() && Random.value <= 0.04f)
             {
                 GridManager.currentGridManager.PlaceTower(cell.GetAxialCoordinates(), ship.GetTowerPrefab());
             }

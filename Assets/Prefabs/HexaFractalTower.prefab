@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: NetworkGuid.RawGuidValue.Array.data[1]
       value: -2988405740804606582
       objectReference: {fileID: 0}
+    - target: {fileID: 8222535462448278792, guid: 0f3809e5459004d0ab31bbae2b706a6c, type: 3}
+      propertyPath: faction
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8845970704988832670, guid: 0f3809e5459004d0ab31bbae2b706a6c, type: 3}
       propertyPath: m_VersionIndex
       value: 4588

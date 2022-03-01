@@ -9,6 +9,7 @@ public class FractalBase : NetworkBehaviour
     public HealthBar healthBar;
     public bool isMain = false;
     public Vector2 axialCoordinates;
+    public Ship.Faction faction;
 
     protected virtual void Awake()
     {
@@ -32,6 +33,7 @@ public class FractalBase : NetworkBehaviour
             }
 
             GridManager.OnTowerDestroyed(axialCoordinates);
+
             Destroy(gameObject);
         }
     }
@@ -120,6 +122,6 @@ public class FractalBase : NetworkBehaviour
 
     private void OnGUI ()
     {
-        GUI.Label(new Rect (0,Screen.height - 50,100,50), "Base Health: " + health);
+        // GUI.Label(new Rect (0,Screen.height - 50,100,50), "Base Health: " + health);
     }
 }

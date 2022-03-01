@@ -18,7 +18,17 @@ public class ShipCollider : MonoBehaviour
             (ship.CompareTag("Fractal") && other.gameObject.CompareTag("Shadow")) ||
             (ship.CompareTag("Shadow") && other.gameObject.CompareTag("Fractal")))
         {
-            ship.Hit(numCollisionEvents, -pec[0].normal);
+            Ship otherShip = Ship.GetShipReference(other);
+
+            if (otherShip != null)
+            {
+                ship.Hit(otherShip.GetDamage() * numCollisionEvents, -pec[0].normal);
+            }
+            else
+            {
+                // TODO Handle tower case
+                ship.Hit(numCollisionEvents, -pec[0].normal);
+            }
         }
     }
 }

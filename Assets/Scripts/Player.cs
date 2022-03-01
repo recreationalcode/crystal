@@ -84,11 +84,11 @@ public class Player : Ship
             // TODO Change this to some kind of player preference or ideally from the player NFT!
             if (Runner.IsServer)
             {
-                shipType = ShipType.Hexa;
+                faction = Faction.Hexa;
             }
             else
             {
-                RPC_SetShipType(ShipType.Quad);
+                RPC_SetShipType(Faction.Quad);
             }
 
             isShipTypeSetByAuthority = true;
@@ -128,6 +128,7 @@ public class Player : Ship
         if(_networkObject.HasInputAuthority)
         {
             GUI.Label(new Rect (0,0,100,50), "Health: " + health);
+            GUI.Label(new Rect (0,50,100,50), "Damage: " + GetDamage());
         }
     }
 }
