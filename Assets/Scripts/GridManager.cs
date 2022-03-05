@@ -89,10 +89,10 @@ public class GridManager : NetworkBehaviour
 
                 if (q == 0 && r == 0)
                 {
-                    NetworkObject fractalBase = Runner.Spawn(_fractalBasePrefab, Vector3.zero, Quaternion.identity);
-                    fractalBaseTransform = fractalBase.transform;
+                    NetworkObject tower = Runner.Spawn(_fractalBasePrefab, Vector3.zero, Quaternion.identity);
+                    fractalBaseTransform = tower.transform;
                     fractalBaseTransform.parent = transform;
-                    gridCells.Add(Vector2Int.RoundToInt(axialCoordinates), fractalBase);
+                    gridCells.Add(Vector2Int.RoundToInt(axialCoordinates), tower);
 
                     crystal.Add(axialCoordinates);
                     highestCrystalSize = crystal.Count;
@@ -113,7 +113,7 @@ public class GridManager : NetworkBehaviour
     {   
         NetworkObject tower = Runner.Spawn(towerPrefab, GetCellCenter(axialCoordinates) + new Vector3(0, 0.5f, 0), Quaternion.identity);
         tower.transform.parent = transform;
-        tower.gameObject.GetComponent<FractalBase>().axialCoordinates = axialCoordinates;
+        tower.gameObject.GetComponent<Tower>().axialCoordinates = axialCoordinates;
 
         protectedCrystal.Add(axialCoordinates);
 

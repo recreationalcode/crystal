@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 
-public class FractalBase : NetworkBehaviour
+public class Tower : NetworkBehaviour
 {
     public int health;
     public HealthBar healthBar;

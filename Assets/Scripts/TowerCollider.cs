@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FractalBaseCollider : MonoBehaviour
+public class TowerCollider : MonoBehaviour
 {
-    public FractalBase fractalBase;
+    public Tower tower;
 
     void OnParticleCollision(GameObject other)
     {
@@ -20,7 +20,7 @@ public class FractalBaseCollider : MonoBehaviour
 
             if (otherShip != null)
             {
-                fractalBase.Hit(otherShip.GetDamage() * numCollisionEvents, -pec[0].normal);
+                tower.Hit(otherShip.GetDamage() * numCollisionEvents, -pec[0].normal);
             }
         }
     }

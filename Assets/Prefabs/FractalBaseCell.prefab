@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1401572842084263888}
   - component: {fileID: 2439274184595639876}
   m_Layer: 0
-  m_Name: Prism
+  m_Name: TriBase
   m_TagString: Fractal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 2, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1653608021595371284}
+  m_Father: {fileID: 3991585386403097746}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1131833265377099323
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a521d020667444ba70e6729b7df5ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fractalBase: {fileID: 7783997303085895243}
+  tower: {fileID: 7783997303085895243}
 --- !u!54 &2439274184595639876
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 8613627737017692119}
   - component: {fileID: 2567789896727251458}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: QuadBase
   m_TagString: Fractal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -373,7 +373,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 0.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1653608021595371284}
+  m_Father: {fileID: 3991585386403097746}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7871055587042724788
@@ -696,7 +696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a521d020667444ba70e6729b7df5ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fractalBase: {fileID: 7783997303085895243}
+  tower: {fileID: 7783997303085895243}
 --- !u!54 &2567789896727251458
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -803,7 +803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6070837104747363748, guid: 0f3809e5459004d0ab31bbae2b706a6c, type: 3}
       propertyPath: m_VersionIndex
-      value: 1795
+      value: 1798
       objectReference: {fileID: 0}
     - target: {fileID: 7035597793529341896, guid: 0f3809e5459004d0ab31bbae2b706a6c, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
@@ -823,7 +823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7236388567238666063, guid: 0f3809e5459004d0ab31bbae2b706a6c, type: 3}
       propertyPath: m_VersionIndex
-      value: 4879
+      value: 4882
       objectReference: {fileID: 0}
     - target: {fileID: 8222535462448278792, guid: 0f3809e5459004d0ab31bbae2b706a6c, type: 3}
       propertyPath: health
@@ -842,7 +842,13 @@ PrefabInstance:
       value: 4594
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2990097668529901521, guid: 0f3809e5459004d0ab31bbae2b706a6c, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 6313492000656725412}
+    - targetCorrespondingSourceObject: {fileID: 2990097668529901521, guid: 0f3809e5459004d0ab31bbae2b706a6c, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 7059699999800985281}
   m_SourcePrefab: {fileID: 100100000, guid: 0f3809e5459004d0ab31bbae2b706a6c, type: 3}
 --- !u!4 &3991585386403097746 stripped
 Transform:
@@ -913,11 +919,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4318324152828884057, guid: eff0fad1f35c54fa28f874a5c1eaf433, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4318324152828884057, guid: eff0fad1f35c54fa28f874a5c1eaf433, type: 3}
       propertyPath: m_TagString
       value: Fractal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4650130156124535842, guid: eff0fad1f35c54fa28f874a5c1eaf433, type: 3}
+      propertyPath: m_Name
+      value: HexaBase (Cell)
       objectReference: {fileID: 0}
     - target: {fileID: 4650130156124535842, guid: eff0fad1f35c54fa28f874a5c1eaf433, type: 3}
       propertyPath: m_TagString
@@ -1026,12 +1036,6 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6915460008358312962, guid: eff0fad1f35c54fa28f874a5c1eaf433, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6313492000656725412}
-    - targetCorrespondingSourceObject: {fileID: 6915460008358312962, guid: eff0fad1f35c54fa28f874a5c1eaf433, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7059699999800985281}
-    - targetCorrespondingSourceObject: {fileID: 6915460008358312962, guid: eff0fad1f35c54fa28f874a5c1eaf433, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3991585386403097746}
   m_SourcePrefab: {fileID: 100100000, guid: eff0fad1f35c54fa28f874a5c1eaf433, type: 3}
 --- !u!1 &685384136911894324 stripped
@@ -1081,7 +1085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a521d020667444ba70e6729b7df5ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fractalBase: {fileID: 0}
+  tower: {fileID: 7783997303085895243}
 --- !u!4 &1653608021595371284 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6915460008358312962, guid: eff0fad1f35c54fa28f874a5c1eaf433, type: 3}

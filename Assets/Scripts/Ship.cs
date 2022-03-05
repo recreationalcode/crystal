@@ -204,9 +204,9 @@ public class Ship : NetworkBehaviour
         }
     }
 
-    public void Boost(FractalBase fractalBase)
+    public void Boost(Tower tower)
     {
-        if (faction == fractalBase.faction || fractalBase.faction == Ship.Faction.None)
+        if (faction == tower.faction || tower.faction == Ship.Faction.None)
         {
             damageBoost += FactionBoost;
         } else {
@@ -226,9 +226,9 @@ public class Ship : NetworkBehaviour
         }
     }
 
-    public void Hinder(FractalBase fractalBase)
+    public void Hinder(Tower tower)
     {
-        if (faction == fractalBase.faction || fractalBase.faction == Ship.Faction.None)
+        if (faction == tower.faction || tower.faction == Ship.Faction.None)
         {
             damageBoost -= FactionBoost;
         } else {
