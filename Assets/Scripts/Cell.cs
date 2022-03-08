@@ -23,7 +23,7 @@ public class Cell : NetworkBehaviour
     private Vector3 _fracturePos;
     private Renderer _renderer;
     private GridManager _gridManager;
-    private Dictionary<Ship.Faction, Material> _crystallizeMaterials;
+    private Dictionary<Faction, Material> _crystallizeMaterials;
 
     private void Awake()
     {
@@ -33,12 +33,12 @@ public class Cell : NetworkBehaviour
         _renderer.material.DisableKeyword("_EMISSION");
         _renderer.material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack;
 
-        _crystallizeMaterials = new Dictionary<Ship.Faction, Material>
+        _crystallizeMaterials = new Dictionary<Faction, Material>
         {
-            {Ship.Faction.Tri, triCrystallizeMaterial},
-            {Ship.Faction.Quad, quadCrystallizeMaterial},
-            {Ship.Faction.Penta, pentaCrystallizeMaterial},
-            {Ship.Faction.Hexa, hexaCrystallizeMaterial}
+            {Faction.Tri, triCrystallizeMaterial},
+            {Faction.Quad, quadCrystallizeMaterial},
+            {Faction.Penta, pentaCrystallizeMaterial},
+            {Faction.Hexa, hexaCrystallizeMaterial}
         };
     }
 
@@ -62,11 +62,11 @@ public class Cell : NetworkBehaviour
         return GridManager.protectedCrystal.Contains(axialCoordinates);
     }
 
-    public Ship.Faction GetFaction()
+    public Faction GetFaction()
     {
         if (crystallizedBy == null)
         {
-            return Ship.Faction.None;
+            return Faction.None;
         }
 
         return crystallizedBy.faction;

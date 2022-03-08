@@ -110,8 +110,9 @@ MonoBehaviour:
   axialCoordinates: {x: 0, y: 0}
   rotationSpeed: 7
   health: 4
-  damage: 1
   healthBar: {fileID: 6739835038813370724}
+  baseDamage: 1
+  damageBoostCapability: 0
   _triPrefab: {fileID: 5669504251289026243, guid: 5b327d0b29c634e08a95bb8ee66f24e4, type: 3}
   _quadPrefab: {fileID: 0}
   _pentaPrefab: {fileID: 0}

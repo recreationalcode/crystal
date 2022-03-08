@@ -9,7 +9,7 @@ public class Tower : NetworkBehaviour
     public HealthBar healthBar;
     public bool isMain = false;
     public Vector2 axialCoordinates;
-    public Ship.Faction faction;
+    public Faction faction;
 
     protected virtual void Awake()
     {

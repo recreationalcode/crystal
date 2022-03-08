@@ -52,9 +52,7 @@ public class ShadowShip : Ship
 
     private bool ShouldFire(float distance)
     {
-        return target != null && distance <= fireDistanceToTarget && (
-            gameObject.CompareTag("Shadow") && target.gameObject.CompareTag("Fractal") ||
-            gameObject.CompareTag("Fractal") && target.gameObject.CompareTag("Shadow"));
+        return target != null && distance <= fireDistanceToTarget && Sensor.IsEnemy(gameObject, target.gameObject);
     }
 
 

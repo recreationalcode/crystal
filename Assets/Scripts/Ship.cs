@@ -5,15 +5,6 @@ using Fusion;
 
 public class Ship : NetworkBehaviour
 {
-    public enum Faction
-    {
-        None,
-        Tri, 
-        Quad, 
-        Penta,
-        Hexa
-    };
-    
     [Networked(OnChanged = nameof(ConstructShipBody), OnChangedTargets = OnChangedTargets.All)]
     public Faction faction { get; set; }
     protected bool isShipTypeSetByAuthority = false;
@@ -24,9 +15,12 @@ public class Ship : NetworkBehaviour
     public int health;
     public HealthBar healthBar;
     public int baseDamage = 1;
+    public int damageBoostCapability = 1;
     private int damageBoost = 0;
-    private const int FractalBoost = 1;
-    private const int FactionBoost = 2;
+    private const int FractalBoostMultiplier = 1;
+    private const int FactionBoostMultiplier = 2;
+    private Dictionary<Ship, int> _shipBoosts = new Dictionary<Ship, int>();
+    private Dictionary<Tower, int> _towerBoosts  = new Dictionary<Tower, int>();
 
     [SerializeField] private GameObject _triPrefab;
     [SerializeField] private GameObject _quadPrefab;
@@ -192,47 +186,49 @@ public class Ship : NetworkBehaviour
         }
     }
 
+    private int _Boost(bool isFaction, int boost)
+    {
+        int finalBoost = boost * (isFaction ? FactionBoostMultiplier : FractalBoostMultiplier);
+
+        damageBoost += finalBoost;
+
+        return finalBoost;
+    }
+
     public void Boost(Ship ship)
     {
         if (ship == this) return;
 
-        if (faction == ship.faction)
-        {
-            damageBoost += FactionBoost;
-        } else {
-            damageBoost += FractalBoost;
-        }
+        _shipBoosts.Add(ship, _Boost(faction == ship.faction, ship.damageBoostCapability));
     }
 
     public void Boost(Tower tower)
     {
-        if (faction == tower.faction || tower.faction == Ship.Faction.None)
-        {
-            damageBoost += FactionBoost;
-        } else {
-            damageBoost += FractalBoost;
-        }
+        // TODO Handle Tower damage capability
+        _towerBoosts.Add(tower, _Boost(faction == tower.faction || tower.faction == Faction.None, 1));
     }
 
     public void Hinder(Ship ship)
     {
         if (ship == this) return;
 
-        if (faction == ship.faction)
+        int boost;
+
+        if (_shipBoosts.TryGetValue(ship, out boost))
         {
-            damageBoost -= FactionBoost;
-        } else {
-            damageBoost -= FractalBoost;
+            damageBoost -= boost;
+            _shipBoosts.Remove(ship);
         }
     }
 
     public void Hinder(Tower tower)
     {
-        if (faction == tower.faction || tower.faction == Ship.Faction.None)
+        int boost;
+
+        if (_towerBoosts.TryGetValue(tower, out boost))
         {
-            damageBoost -= FactionBoost;
-        } else {
-            damageBoost -= FractalBoost;
+            damageBoost -= boost;
+            _towerBoosts.Remove(tower);
         }
     }
 }

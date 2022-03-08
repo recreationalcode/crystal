@@ -38,7 +38,7 @@ Transform:
   - {fileID: 5192220221374344384}
   - {fileID: 725594155495261092}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7184385197546596064
 MonoBehaviour:
@@ -5181,7 +5181,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4879
+  m_VersionIndex: 4885
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5874,7 +5874,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4594
+  m_VersionIndex: 4600
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -6216,7 +6216,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1795
+  m_VersionIndex: 1801
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -6399,7 +6399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11b33551772e64a2586a8d7aa267f8be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tower: {fileID: 0}
+  tower: {fileID: 8222535462448278792}
 --- !u!1001 &1109632647425238769
 PrefabInstance:
   m_ObjectHideFlags: 0

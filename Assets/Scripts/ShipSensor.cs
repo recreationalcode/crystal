@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipSensor : MonoBehaviour
+public class ShipSensor : Sensor
 {
     public Ship ship;
 
@@ -12,14 +12,13 @@ public class ShipSensor : MonoBehaviour
         {
             ShadowShip shadowShip = ship as ShadowShip;
 
-            if (shadowShip.gameObject.CompareTag("Shadow") && other.gameObject.CompareTag("Fractal") ||
-                shadowShip.gameObject.CompareTag("Fractal") && other.gameObject.CompareTag("Shadow"))
+            if (IsEnemy(ship.gameObject, other.gameObject))
             {
                 shadowShip.AddTarget(other.transform.parent);
             }
         }
 
-        if ((ship is Player || ship is PlayerAI) && other.gameObject.CompareTag("Fractal"))
+        if (IsFriend(ship.gameObject, other.gameObject))
         {
             Ship otherShip = Ship.GetShipReference(other);
 
@@ -36,14 +35,13 @@ public class ShipSensor : MonoBehaviour
         {
             ShadowShip shadowShip = ship as ShadowShip;
 
-            if (shadowShip.gameObject.CompareTag("Shadow") && other.gameObject.CompareTag("Fractal") ||
-                shadowShip.gameObject.CompareTag("Fractal") && other.gameObject.CompareTag("Shadow"))
+            if (IsEnemy(ship.gameObject, other.gameObject))
             {
                 shadowShip.RemoveTarget(other.transform.parent);
             }
         }
 
-        if ((ship is Player || ship is PlayerAI) && other.gameObject.CompareTag("Fractal"))
+        if (IsFriend(ship.gameObject, other.gameObject))
         {
             // If another Fractal ship
             Ship otherShip = Ship.GetShipReference(other);;
