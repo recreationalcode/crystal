@@ -24,7 +24,7 @@ public class ShadowManager : NetworkBehaviour
     private void Awake()
     {
         maxTimeBetweenSpawns = timeBetweenSpawns;
-        timeBetweenAISpawns = 10 * timeBetweenSpawns;
+        timeBetweenAISpawns = 5 * timeBetweenSpawns;
     }
 
     public override void Spawned()
@@ -51,12 +51,12 @@ public class ShadowManager : NetworkBehaviour
 
     public static float GetShadowHealthFactor()
     {
-        return 1 + (ShadowManager.elapsedTime / 60);
+        return 1 + (ShadowManager.elapsedTime / 60 / 2);
     }
 
     public static float GetShadowDamageFactor()
     {
-        return 1 + (ShadowManager.elapsedTime / 60);
+        return 1 + (ShadowManager.elapsedTime / 60 / 2);
     }
 
     private Vector3 RandomShadowSpawnPoint() {
@@ -82,7 +82,7 @@ public class ShadowManager : NetworkBehaviour
     {         
         while (true)
         {
-            if (playerAIShips.Count == 10) yield break;
+            // if (playerAIShips.Count == 10) yield break;
 
             NetworkObject playerAIShip = Runner.Spawn(_playerAIPrefab, RandomShadowSpawnPoint(), Quaternion.identity);
             playerAIShips.Add(playerAIShip);

@@ -9,7 +9,7 @@ public class PlayerAI : ShadowShip
     protected new static float fireDistanceToTarget = 15f;
     protected new static float maxDistanceToTarget = 10f;
 
-    private static float timeBetweenDefaultTargetChanges = 3f;
+    private static float timeBetweenDefaultTargetChanges = 5f;
     private float lastDefaultTargetChangeTimestamp;
 
     protected override void InitializeHealth()
@@ -66,11 +66,11 @@ public class PlayerAI : ShadowShip
     {
         float r = Random.value;
 
-        if (r <= 0.30f)
+        if (r <= 0.0f)
         {
             defaultTarget = Runner.GetPlayerObject(Runner.LocalPlayer).transform;
         }
-        else if (r <= 0.60f)
+        else if (r <= 0.0f)
         {
             defaultTarget = GridManager.fractalBaseTransform;
         }

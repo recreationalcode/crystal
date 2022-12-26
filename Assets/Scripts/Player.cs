@@ -66,14 +66,14 @@ public class Player : Ship
     {
         base.Awake();
 
-        _vcam = GameObject.Find("VCAM").GetComponent<CinemachineVirtualCamera>();
+        // _vcam = GameObject.Find("VCAM").GetComponent<CinemachineVirtualCamera>();
     }
 
     private void Start()
     {
         if(Object.HasInputAuthority)
         {
-            _vcam.Follow = transform;
+            // _vcam.Follow = transform;
         }
     }
 
